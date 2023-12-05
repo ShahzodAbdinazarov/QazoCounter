@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Qazo counter</string>
+    <string name="fajr">Bomdod</string>
+    <string name="dhuhr">Peshin</string>
+    <string name="asr">Asr</string>
+    <string name="maghrib">Shom</string>
+    <string name="isha">Xufton</string>
+    <string name="count_qazo">O‘qilishi kerak bo‘lgan qazolar</string>
+    <string name="count_pray">Qazo qilib o‘qilganlar</string>
+    <string name="count_ado">Ado qilinganlar</string>
+    <string name="ado">Ado qilindi</string>
+    <string name="qazo">Qazo bo‘ldi</string>
+    <string name="pray">Qazosi o‘qildi</string>
+    <string name="yet">Belgilanmagan</string>
+
+</resources>

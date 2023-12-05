@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="middle">#FF888888</color>
+    <color name="ado">#00FF00</color>
+    <color name="qazo">#FF0000</color>
+    <color name="pray">#FFFF00</color>
+    <color name="yet">#0000FF</color>
+
+    <color name="max">#FFFFFFFF</color>
+    <color name="reverse">#FF000000</color>
+    <color name="bg">#F2F3F8</color>
+
+</resources>
