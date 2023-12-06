@@ -36,9 +36,9 @@ class MainFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setupData() {
-        binding.tvQazo.text = "${SharedPrefs(requireContext()).qazo()} ta"
-        binding.tvPray.text = "${SharedPrefs(requireContext()).pray()} ta"
-        binding.tvAdo.text = "${SharedPrefs(requireContext()).ado()} ta"
+        binding.tvQazo.text = "${SharedPrefs(requireContext()).allQazo()} ta"
+        binding.tvPray.text = "${SharedPrefs(requireContext()).allPray()} ta"
+        binding.tvAdo.text = "${SharedPrefs(requireContext()).allAdo()} ta"
     }
 
     private fun setupList() {

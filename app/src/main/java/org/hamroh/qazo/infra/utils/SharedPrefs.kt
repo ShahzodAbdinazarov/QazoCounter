@@ -8,14 +8,6 @@ class SharedPrefs(context: Context) {
 
     companion object {
         private const val PREF = "MyAppPrefName"
-        const val ADO = "ADO"
-        const val QAZO = "QAZO"
-        const val PRAY = "PRAY"
-        const val FAJR = "FAJR"
-        const val DHUHR = "DHUHR"
-        const val ASR = "ASR"
-        const val MAGHRIB = "MAGHRIB"
-        const val ISHA = "ISHA"
     }
 
     private val sharedPref: SharedPreferences = context.getSharedPreferences(PREF, Context.MODE_PRIVATE)
@@ -23,7 +15,7 @@ class SharedPrefs(context: Context) {
     fun increase(key: String) = put(key, (get(key, Long::class.java) + 1))
     fun decrease(key: String) = put(key, (get(key, Long::class.java) - 1))
 
-    fun qazo(): Long {
+    fun allQazo(): Long {
         return get(PrayType.QAZO.toString() + PrayTime.FAJR.toString(), Long::class.java) +
                 get(PrayType.QAZO.toString() + PrayTime.DHUHR.toString(), Long::class.java) +
                 get(PrayType.QAZO.toString() + PrayTime.ASR.toString(), Long::class.java) +
@@ -31,7 +23,7 @@ class SharedPrefs(context: Context) {
                 get(PrayType.QAZO.toString() + PrayTime.ISHA.toString(), Long::class.java)
     }
 
-    fun ado(): Long {
+    fun allAdo(): Long {
         return get(PrayType.ADO.toString() + PrayTime.FAJR.toString(), Long::class.java) +
                 get(PrayType.ADO.toString() + PrayTime.DHUHR.toString(), Long::class.java) +
                 get(PrayType.ADO.toString() + PrayTime.ASR.toString(), Long::class.java) +
@@ -39,7 +31,7 @@ class SharedPrefs(context: Context) {
                 get(PrayType.ADO.toString() + PrayTime.ISHA.toString(), Long::class.java)
     }
 
-    fun pray(): Long {
+    fun allPray(): Long {
         return get(PrayType.PRAY.toString() + PrayTime.FAJR.toString(), Long::class.java) +
                 get(PrayType.PRAY.toString() + PrayTime.DHUHR.toString(), Long::class.java) +
                 get(PrayType.PRAY.toString() + PrayTime.ASR.toString(), Long::class.java) +
