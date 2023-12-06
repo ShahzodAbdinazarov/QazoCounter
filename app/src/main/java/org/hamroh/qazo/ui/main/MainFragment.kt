@@ -2,7 +2,6 @@ package org.hamroh.qazo.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,20 +36,20 @@ class MainFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun setupData() {
-        binding.tvQazo.text = "${SharedPrefs(requireContext()).qazo} ta"
-        binding.tvPray.text = "${SharedPrefs(requireContext()).pray} ta"
-        binding.tvAdo.text = "${SharedPrefs(requireContext()).ado} ta"
+        binding.tvQazo.text = "${SharedPrefs(requireContext()).qazo()} ta"
+        binding.tvPray.text = "${SharedPrefs(requireContext()).pray()} ta"
+        binding.tvAdo.text = "${SharedPrefs(requireContext()).ado()} ta"
     }
 
     private fun setupList() {
         val dayAdapter = DayPagingAdapter(requireActivity() as MainActivity).apply {
             onItemClick = { key, pos ->
-                Log.e("TAG", "KEY: ${key.substring(13)}")
+                val prayTime = key.substring(13)
                 val statusDialog = StatusDialog()
                 statusDialog.onClick = { prayType ->
-                    SharedPrefs(requireContext()).decrease(SharedPrefs(requireContext()).get(key, String::class.java))
+                    SharedPrefs(requireContext()).decrease(SharedPrefs(requireContext()).get(key, String::class.java) + prayTime)
                     SharedPrefs(requireContext()).put(key, prayType)
-                    SharedPrefs(requireContext()).increase(prayType)
+                    SharedPrefs(requireContext()).increase(prayType + prayTime)
                     notifyItemChanged(pos)
                     setupData()
                 }

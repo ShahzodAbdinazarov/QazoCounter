@@ -11,15 +11,41 @@ class SharedPrefs(context: Context) {
         const val ADO = "ADO"
         const val QAZO = "QAZO"
         const val PRAY = "PRAY"
+        const val FAJR = "FAJR"
+        const val DHUHR = "DHUHR"
+        const val ASR = "ASR"
+        const val MAGHRIB = "MAGHRIB"
+        const val ISHA = "ISHA"
     }
 
     private val sharedPref: SharedPreferences = context.getSharedPreferences(PREF, Context.MODE_PRIVATE)
 
     fun increase(key: String) = put(key, (get(key, Long::class.java) + 1))
     fun decrease(key: String) = put(key, (get(key, Long::class.java) - 1))
-    val qazo = get(PrayType.QAZO.toString(), Long::class.java)
-    val ado = get(PrayType.ADO.toString(), Long::class.java)
-    val pray = get(PrayType.PRAY.toString(), Long::class.java)
+
+    fun qazo(): Long {
+        return get(PrayType.QAZO.toString() + PrayTime.FAJR.toString(), Long::class.java) +
+                get(PrayType.QAZO.toString() + PrayTime.DHUHR.toString(), Long::class.java) +
+                get(PrayType.QAZO.toString() + PrayTime.ASR.toString(), Long::class.java) +
+                get(PrayType.QAZO.toString() + PrayTime.MAGHRIB.toString(), Long::class.java) +
+                get(PrayType.QAZO.toString() + PrayTime.ISHA.toString(), Long::class.java)
+    }
+
+    fun ado(): Long {
+        return get(PrayType.ADO.toString() + PrayTime.FAJR.toString(), Long::class.java) +
+                get(PrayType.ADO.toString() + PrayTime.DHUHR.toString(), Long::class.java) +
+                get(PrayType.ADO.toString() + PrayTime.ASR.toString(), Long::class.java) +
+                get(PrayType.ADO.toString() + PrayTime.MAGHRIB.toString(), Long::class.java) +
+                get(PrayType.ADO.toString() + PrayTime.ISHA.toString(), Long::class.java)
+    }
+
+    fun pray(): Long {
+        return get(PrayType.PRAY.toString() + PrayTime.FAJR.toString(), Long::class.java) +
+                get(PrayType.PRAY.toString() + PrayTime.DHUHR.toString(), Long::class.java) +
+                get(PrayType.PRAY.toString() + PrayTime.ASR.toString(), Long::class.java) +
+                get(PrayType.PRAY.toString() + PrayTime.MAGHRIB.toString(), Long::class.java) +
+                get(PrayType.PRAY.toString() + PrayTime.ISHA.toString(), Long::class.java)
+    }
 
     fun <T> get(key: String, clazz: Class<T>): T = when (clazz) {
         String::class.java -> sharedPref.getString(key, "")
