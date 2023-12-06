@@ -64,6 +64,7 @@ class MainFragment : Fragment() {
             layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL).apply { reverseLayout = true }
             adapter = dayAdapter
         }
+
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvDay)
 
