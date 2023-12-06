@@ -60,7 +60,7 @@ class MainFragment : Fragment() {
         viewModel.getList().observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
 
         binding.rvDay.apply {
-            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL).apply { reverseLayout = true }
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)//.apply { reverseLayout = true }
             adapter = dayAdapter
         }
 

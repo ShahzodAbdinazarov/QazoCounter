@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingBottom="100dp"
     tools:ignore="NestedWeights">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="40dp"
         app:cardBackgroundColor="@color/bg"
         app:cardCornerRadius="20dp"
         app:cardElevation="20dp"
@@ -28,22 +30,6 @@
                 android:gravity="center">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    app:cardCornerRadius="24dp">
-
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/app_name"
-                        android:scaleType="centerCrop"
-                        android:src="@android:drawable/ic_media_previous" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_margin="10dp"
@@ -57,22 +43,6 @@
                         android:gravity="center"
                         android:paddingHorizontal="20dp"
                         android:textSize="16sp" />
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    app:cardCornerRadius="24dp">
-
-                    <ImageButton
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:adjustViewBounds="true"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/app_name"
-                        android:scaleType="centerCrop"
-                        android:src="@android:drawable/ic_media_next" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -341,13 +311,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="10dp"
-                android:background="@color/reverse" />
-
 
         </LinearLayout>
 

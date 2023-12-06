@@ -3,6 +3,7 @@ package org.hamroh.qazo.infra.utils
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 
 fun getList(page: Int): ArrayList<String> {
@@ -26,5 +27,5 @@ fun getToday(): Long {
 fun Long.getDate(dateFormat: String?): String? {
     val calendar: Calendar = Calendar.getInstance()
     calendar.timeInMillis = this
-    return SimpleDateFormat(dateFormat).format(calendar.time)
+    return SimpleDateFormat(dateFormat, Locale.forLanguageTag("uz")).format(calendar.time)
 }

@@ -47,7 +47,7 @@ class DayPagingAdapter(private val activity: Activity) : PagingDataAdapter<Strin
         fun bind(data: String, activity: Activity) {
 
             prayTime = data
-            binding.tvDate.text = prayTime.toLong().getDate("dd-MMMM yyyy") + "-y"
+            binding.tvDate.text = prayTime.toLong().getDate("dd-MMMM, EEEE yyyy") + "-yil"
             setUp(prayTime, activity)
 
         }
