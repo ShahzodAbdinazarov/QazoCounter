@@ -10,5 +10,4 @@ import androidx.paging.liveData
 class DayViewModel : ViewModel() {
 
     fun getList() = Pager(PagingConfig(pageSize = 10)) { DayPaging() }.liveData.cachedIn(viewModelScope)
-    fun getDays() = Pager(config = PagingConfig(pageSize = 10, enablePlaceholders = false), pagingSourceFactory = {DayPaging()}).liveData
 }

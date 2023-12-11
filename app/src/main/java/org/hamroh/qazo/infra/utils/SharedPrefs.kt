@@ -8,9 +8,13 @@ class SharedPrefs(context: Context) {
 
     companion object {
         private const val PREF = "MyAppPrefName"
+        private const val ABLUTION = "ABLUTION"
     }
 
     private val sharedPref: SharedPreferences = context.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+
+    fun setAblution(ablution: Boolean) = put(ABLUTION, ablution)
+    val ablution = get(ABLUTION, Boolean::class.java)
 
     fun increase(key: String) = put(key, (get(key, Long::class.java) + 1))
     fun decrease(key: String) = put(key, (get(key, Long::class.java) - 1))
@@ -62,6 +66,6 @@ class SharedPrefs(context: Context) {
         editor.apply()
     }
 
-    fun clearAll() = sharedPref.edit().clear().commit()
+//    fun clearAll() = sharedPref.edit().clear().commit()
 
 }

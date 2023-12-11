@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import org.hamroh.qazo.R
 import org.hamroh.qazo.databinding.FragmentMainBinding
 import org.hamroh.qazo.infra.utils.SharedPrefs
 import org.hamroh.qazo.ui.MainActivity
@@ -28,10 +29,32 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        setupData()
+        setupAblution()
         setupList()
+        setupData()
 
         return binding.root
+    }
+
+    private fun setupAblution() {
+        checkAblution()
+        binding.bnAblution.setOnClickListener {
+            if (SharedPrefs(requireContext()).ablution) SharedPrefs(requireContext()).setAblution(false)
+            else SharedPrefs(requireContext()).setAblution(true)
+            checkAblution()
+        }
+    }
+
+    private fun checkAblution() {
+        if (SharedPrefs(requireContext()).ablution) {
+            binding.bgAblution.setBackgroundResource(R.drawable.gr_ado)
+            binding.ivHave.visibility = View.VISIBLE
+            binding.ivHaveNot.visibility = View.INVISIBLE
+        } else {
+            binding.bgAblution.setBackgroundResource(R.drawable.gr_qazo)
+            binding.ivHaveNot.visibility = View.VISIBLE
+            binding.ivHave.visibility = View.INVISIBLE
+        }
     }
 
     @SuppressLint("SetTextI18n")
