@@ -61,7 +61,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:paddingHorizontal="20dp"
                     android:text="@string/fajr"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                             android:paddingHorizontal="20dp"
                             android:text="@string/yet"
                             android:textColor="@color/white"
-                            android:textSize="24sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -115,7 +115,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:paddingHorizontal="20dp"
                     android:text="@string/dhuhr"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                             android:paddingHorizontal="20dp"
                             android:text="@string/yet"
                             android:textColor="@color/white"
-                            android:textSize="24sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -169,7 +169,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:paddingHorizontal="20dp"
                     android:text="@string/asr"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -196,7 +196,7 @@
                             android:paddingHorizontal="20dp"
                             android:text="@string/yet"
                             android:textColor="@color/white"
-                            android:textSize="24sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -223,7 +223,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:paddingHorizontal="20dp"
                     android:text="@string/maghrib"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                             android:paddingHorizontal="20dp"
                             android:text="@string/yet"
                             android:textColor="@color/white"
-                            android:textSize="24sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -277,7 +277,7 @@
                     android:fontFamily="@font/roboto_bold"
                     android:paddingHorizontal="20dp"
                     android:text="@string/isha"
-                    android:textSize="36sp" />
+                    android:textSize="24sp" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -304,7 +304,7 @@
                             android:paddingHorizontal="20dp"
                             android:text="@string/yet"
                             android:textColor="@color/white"
-                            android:textSize="24sp" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
