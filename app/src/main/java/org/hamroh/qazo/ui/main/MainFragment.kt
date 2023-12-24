@@ -14,6 +14,7 @@ import org.hamroh.qazo.R
 import org.hamroh.qazo.databinding.FragmentMainBinding
 import org.hamroh.qazo.infra.utils.SharedPrefs
 import org.hamroh.qazo.ui.MainActivity
+import org.hamroh.qazo.ui.profile.ProfileDialog
 import org.hamroh.qazo.ui.status.StatusDialog
 
 
@@ -29,11 +30,26 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
+        setupProfile()
         setupAblution()
         setupList()
         setupData()
 
         return binding.root
+    }
+
+    private fun setupProfile() {
+        setName()
+        binding.bnProfile.setOnClickListener {
+            val profile = ProfileDialog()
+            profile.onClick = { requireActivity().recreate() }
+            profile.show(requireActivity().supportFragmentManager, "ProfileDialog")
+        }
+    }
+
+    private fun setName() {
+        val name = SharedPrefs(requireContext()).name
+        binding.tvName.text = name.ifEmpty { getString(R.string.your_name) }
     }
 
     private fun setupAblution() {

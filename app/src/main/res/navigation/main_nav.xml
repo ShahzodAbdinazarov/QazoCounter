@@ -15,4 +15,9 @@
         android:name="org.hamroh.qazo.ui.status.StatusDialog"
         android:label="fragment_status"
         tools:layout="@layout/fragment_status" />
+    <dialog
+        android:id="@+id/profileDialog"
+        android:name="org.hamroh.qazo.ui.profile.ProfileDialog"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

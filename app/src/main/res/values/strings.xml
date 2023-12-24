@@ -12,5 +12,7 @@
     <string name="qazo">Qazo bo‘ldi</string>
     <string name="pray">Qazosi o‘qildi</string>
     <string name="yet">Belgilanmagan</string>
+    <string name="your_name">Ismingiz?</string>
+    <string name="enter_your_name">Ismingizni kiriting!</string>
 
 </resources>
