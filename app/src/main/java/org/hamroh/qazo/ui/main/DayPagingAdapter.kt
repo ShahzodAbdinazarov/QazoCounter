@@ -1,7 +1,7 @@
 package org.hamroh.qazo.ui.main
 
 import android.annotation.SuppressLint
-import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -14,7 +14,7 @@ import org.hamroh.qazo.infra.utils.PrayType
 import org.hamroh.qazo.infra.utils.SharedPrefs
 import org.hamroh.qazo.infra.utils.getDate
 
-class DayPagingAdapter(private val activity: Activity) : PagingDataAdapter<String, DayPagingAdapter.ViewHolder>(DIFF_UTIL) {
+class DayPagingAdapter(private var onItemClick: ((String, Int) -> Unit)? = null) : PagingDataAdapter<String, DayPagingAdapter.ViewHolder>(DIFF_UTIL) {
 
     companion object {
         val DIFF_UTIL = object : DiffUtil.ItemCallback<String>() {
@@ -29,9 +29,8 @@ class DayPagingAdapter(private val activity: Activity) : PagingDataAdapter<Strin
         }
     }
 
-    var onItemClick: ((String, Int) -> Unit)? = null
 
-    class ViewHolder(private val binding: ItemDayBinding, onItemClick: ((String, Int) -> Unit)?) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemDayBinding, onItemClick: ((String, Int) -> Unit)?, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var prayTime: String
 
@@ -44,34 +43,34 @@ class DayPagingAdapter(private val activity: Activity) : PagingDataAdapter<Strin
         }
 
         @SuppressLint("ResourceAsColor", "SetTextI18n")
-        fun bind(data: String, activity: Activity) {
+        fun bind(data: String) {
 
             prayTime = data
             binding.tvDate.text = prayTime.toLong().getDate("dd-MMMM, EEEE yyyy") + "-yil"
-            setUp(prayTime, activity)
+            setUp(prayTime)
 
         }
 
-        private fun setUp(prayTime: String, activity: Activity) {
-            val fajr = SharedPrefs(activity).get("$prayTime${PrayTime.FAJR}", String::class.java)
+        private fun setUp(prayTime: String) {
+            val fajr = SharedPrefs(context).get("$prayTime${PrayTime.FAJR}", String::class.java)
             binding.bgFajr.setBackgroundResource(getGradient(fajr))
-            binding.tvFajr.text = getTypeText(fajr, activity)
+            binding.tvFajr.text = getTypeText(fajr)
 
-            val dhuhr = SharedPrefs(activity).get("$prayTime${PrayTime.DHUHR}", String::class.java)
+            val dhuhr = SharedPrefs(context).get("$prayTime${PrayTime.DHUHR}", String::class.java)
             binding.bgDhuhr.setBackgroundResource(getGradient(dhuhr))
-            binding.tvDhuhr.text = getTypeText(dhuhr, activity)
+            binding.tvDhuhr.text = getTypeText(dhuhr)
 
-            val asr = SharedPrefs(activity).get("$prayTime${PrayTime.ASR}", String::class.java)
+            val asr = SharedPrefs(context).get("$prayTime${PrayTime.ASR}", String::class.java)
             binding.bgAsr.setBackgroundResource(getGradient(asr))
-            binding.tvAsr.text = getTypeText(asr, activity)
+            binding.tvAsr.text = getTypeText(asr)
 
-            val maghrib = SharedPrefs(activity).get("$prayTime${PrayTime.MAGHRIB}", String::class.java)
+            val maghrib = SharedPrefs(context).get("$prayTime${PrayTime.MAGHRIB}", String::class.java)
             binding.bgMaghrib.setBackgroundResource(getGradient(maghrib))
-            binding.tvMaghrib.text = getTypeText(maghrib, activity)
+            binding.tvMaghrib.text = getTypeText(maghrib)
 
-            val isha = SharedPrefs(activity).get("$prayTime${PrayTime.ISHA}", String::class.java)
+            val isha = SharedPrefs(context).get("$prayTime${PrayTime.ISHA}", String::class.java)
             binding.bgIsha.setBackgroundResource(getGradient(isha))
-            binding.tvIsha.text = getTypeText(isha, activity)
+            binding.tvIsha.text = getTypeText(isha)
 
         }
 
@@ -85,18 +84,18 @@ class DayPagingAdapter(private val activity: Activity) : PagingDataAdapter<Strin
             }
         }
 
-        private fun getTypeText(prayType: String, activity: Activity): String {
+        private fun getTypeText(prayType: String): String {
             return when (prayType) {
-                PrayType.ADO.toString() -> activity.getString(R.string.ado)
-                PrayType.PRAY.toString() -> activity.getString(R.string.pray)
-                PrayType.QAZO.toString() -> activity.getString(R.string.qazo)
-                else -> activity.getString(R.string.yet)
+                PrayType.ADO.toString() -> context.getString(R.string.ado)
+                PrayType.PRAY.toString() -> context.getString(R.string.pray)
+                PrayType.QAZO.toString() -> context.getString(R.string.qazo)
+                else -> context.getString(R.string.yet)
             }
         }
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemDayBinding.inflate(LayoutInflater.from(parent.context), parent, false), onItemClick)
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position)!!, activity)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemDayBinding.inflate(LayoutInflater.from(parent.context), parent, false), onItemClick, parent.context)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position)!!)
 }
 

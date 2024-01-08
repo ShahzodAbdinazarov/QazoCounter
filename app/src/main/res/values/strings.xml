@@ -14,5 +14,8 @@
     <string name="yet">Belgilanmagan</string>
     <string name="your_name">Ismingiz?</string>
     <string name="enter_your_name">Ismingizni kiriting!</string>
+    <string name="zero">0</string>
+    <string name="profile">Profil</string>
+    <string name="qazolar">Qazolar</string>
 
 </resources>

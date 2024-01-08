@@ -10,14 +10,23 @@
         android:name="org.hamroh.qazo.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
-    <dialog
+
+    <fragment
         android:id="@+id/statusDialog"
         android:name="org.hamroh.qazo.ui.status.StatusDialog"
         android:label="fragment_status"
         tools:layout="@layout/fragment_status" />
-    <dialog
+
+    <fragment
         android:id="@+id/profileDialog"
         android:name="org.hamroh.qazo.ui.profile.ProfileDialog"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/qazoFragment"
+        android:name="org.hamroh.qazo.ui.qazo.QazoFragment"
+        android:label="fragment_qazo"
+        tools:layout="@layout/fragment_qazo" />
+
 </navigation>

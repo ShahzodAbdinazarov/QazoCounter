@@ -23,13 +23,19 @@ class SharedPrefs(context: Context) {
     fun increase(key: String) = put(key, (get(key, Long::class.java) + 1))
     fun decrease(key: String) = put(key, (get(key, Long::class.java) - 1))
 
-    fun allQazo(): Long {
-        return get(PrayType.QAZO.toString() + PrayTime.FAJR.toString(), Long::class.java) +
-                get(PrayType.QAZO.toString() + PrayTime.DHUHR.toString(), Long::class.java) +
-                get(PrayType.QAZO.toString() + PrayTime.ASR.toString(), Long::class.java) +
-                get(PrayType.QAZO.toString() + PrayTime.MAGHRIB.toString(), Long::class.java) +
-                get(PrayType.QAZO.toString() + PrayTime.ISHA.toString(), Long::class.java)
-    }
+    fun setFajr(count: Long) = put(PrayType.QAZO.toString() + PrayTime.FAJR.toString(), count)
+    fun setDhuhr(count: Long) = put(PrayType.QAZO.toString() + PrayTime.DHUHR.toString(), count)
+    fun setAsr(count: Long) = put(PrayType.QAZO.toString() + PrayTime.ASR.toString(), count)
+    fun setMaghrib(count: Long) = put(PrayType.QAZO.toString() + PrayTime.MAGHRIB.toString(), count)
+    fun setIsha(count: Long) = put(PrayType.QAZO.toString() + PrayTime.ISHA.toString(), count)
+
+    fun getFajr() = get(PrayType.QAZO.toString() + PrayTime.FAJR.toString(), Long::class.java)
+    fun getDhuhr() = get(PrayType.QAZO.toString() + PrayTime.DHUHR.toString(), Long::class.java)
+    fun getAsr() = get(PrayType.QAZO.toString() + PrayTime.ASR.toString(), Long::class.java)
+    fun getMaghrib() = get(PrayType.QAZO.toString() + PrayTime.MAGHRIB.toString(), Long::class.java)
+    fun getIsha() = get(PrayType.QAZO.toString() + PrayTime.ISHA.toString(), Long::class.java)
+
+    fun allQazo() = getFajr() + getDhuhr() + getAsr() + getMaghrib() + getIsha()
 
     fun allAdo(): Long {
         return get(PrayType.ADO.toString() + PrayTime.FAJR.toString(), Long::class.java) +

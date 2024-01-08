@@ -2,6 +2,7 @@ package org.hamroh.qazo.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +14,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.hamroh.qazo.R
 import org.hamroh.qazo.databinding.FragmentMainBinding
 import org.hamroh.qazo.infra.utils.SharedPrefs
-import org.hamroh.qazo.ui.MainActivity
 import org.hamroh.qazo.ui.profile.ProfileDialog
+import org.hamroh.qazo.ui.qazo.QazoFragment
 import org.hamroh.qazo.ui.status.StatusDialog
 
 
 class MainFragment : Fragment() {
 
+    private lateinit var dayAdapter: DayPagingAdapter
     private val viewModel: DayViewModel by viewModels()
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -34,8 +36,18 @@ class MainFragment : Fragment() {
         setupAblution()
         setupList()
         setupData()
+        setupQazo()
 
         return binding.root
+    }
+
+    private fun setupQazo() {
+        binding.tvQazo.setOnClickListener {
+            Log.e("TAG", "setupQazo: ")
+            val qazoFragment = QazoFragment()
+            qazoFragment.onClick = { requireActivity().recreate() }
+            qazoFragment.show(requireActivity().supportFragmentManager, "QazoFragment")
+        }
     }
 
     private fun setupProfile() {
@@ -81,31 +93,32 @@ class MainFragment : Fragment() {
     }
 
     private fun setupList() {
-        val dayAdapter = DayPagingAdapter(requireActivity() as MainActivity).apply {
-            onItemClick = { key, pos ->
-                val prayTime = key.substring(13)
-                val statusDialog = StatusDialog()
-                statusDialog.onClick = { prayType ->
-                    SharedPrefs(requireContext()).decrease(SharedPrefs(requireContext()).get(key, String::class.java) + prayTime)
-                    SharedPrefs(requireContext()).put(key, prayType)
-                    SharedPrefs(requireContext()).increase(prayType + prayTime)
-                    notifyItemChanged(pos)
-                    setupData()
-                }
-                statusDialog.show(requireActivity().supportFragmentManager, "StatusDialog")
-            }
-        }
+        dayAdapter = DayPagingAdapter(::changeStatus)
 
         viewModel.getList().observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
 
         binding.rvDay.apply {
-            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)//.apply { reverseLayout = true }
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL).apply { reverseLayout = true }
             adapter = dayAdapter
         }
 
         val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvDay)
 
+    }
+
+    private fun changeStatus(key: String, pos: Int) {
+        val prayTime = key.substring(13)
+        val statusDialog = StatusDialog()
+        statusDialog.onClick = { prayType ->
+            SharedPrefs(requireContext()).decrease(SharedPrefs(requireContext()).get(key, String::class.java) + prayTime)
+            SharedPrefs(requireContext()).put(key, prayType)
+            SharedPrefs(requireContext()).increase(prayType + prayTime)
+            Log.e("TAG", "changeStatus: ${prayType + prayTime}")
+            dayAdapter.notifyItemChanged(pos)
+            setupData()
+        }
+        statusDialog.show(requireActivity().supportFragmentManager, "StatusDialog")
     }
 
 }
