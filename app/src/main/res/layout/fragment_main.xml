@@ -47,7 +47,7 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_logo"
-                    app:tint="@color/reverse" />
+                    app:tint="@color/textColor" />
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -56,7 +56,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_medium"
                     android:paddingHorizontal="5dp"
-                    android:textColor="@color/reverse"
+                    android:textColor="@color/textColor"
                     android:textSize="24sp" />
 
                 <ImageView
@@ -67,7 +67,7 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_arrow_forward"
-                    app:tint="@color/middle" />
+                    app:tint="@color/textColor" />
 
             </LinearLayout>
 
@@ -128,6 +128,42 @@
 
     </LinearLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mv_today"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="80dp"
+        android:visibility="gone"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gr_pray">
+
+            <TextView
+                android:id="@+id/bn_today"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center"
+                android:paddingHorizontal="20dp"
+                android:text="@string/today"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -135,9 +171,9 @@
         android:layout_margin="20dp">
 
         <TextView
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
@@ -170,9 +206,9 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
@@ -205,9 +241,9 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="wrap_content"
@@ -240,9 +276,9 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

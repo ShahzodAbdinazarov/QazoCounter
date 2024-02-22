@@ -12,8 +12,8 @@ android {
         applicationId = "org.hamroh.qazo"
         minSdk = 24
         targetSdk = 34
-        versionCode = 7
-        versionName = "1.0.7"
+        versionCode = 8
+        versionName = "1.0.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -55,8 +55,8 @@ dependencies {
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     /*
         implementation("androidx.legacy:legacy-support-v4:1.0.0")

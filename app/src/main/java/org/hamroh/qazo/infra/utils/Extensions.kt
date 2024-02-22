@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -16,6 +18,14 @@ import org.hamroh.qazo.R
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
+fun ViewGroup.hide() {
+    this.visibility = View.GONE
+}
+
+fun ViewGroup.show() {
+    this.visibility = View.VISIBLE
+}
 
 fun Fragment.showSnackbar(message: String, timeLength: Int = Snackbar.LENGTH_SHORT, param: String = "CoordinatorLayout") {
     if (view != null) {
