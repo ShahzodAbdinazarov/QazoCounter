@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.hamroh.qazo.R
 import org.hamroh.qazo.databinding.FragmentMainBinding
 import org.hamroh.qazo.infra.utils.SharedPrefs
+import org.hamroh.qazo.infra.utils.getToday
 import org.hamroh.qazo.infra.utils.hide
 import org.hamroh.qazo.infra.utils.show
 import org.hamroh.qazo.ui.profile.ProfileDialog
@@ -53,10 +54,7 @@ class MainFragment : Fragment() {
                 else if (!isRecyclerAtTop() && dy < 0 && !binding.mvToday.isShown) binding.mvToday.show()
             }
         })
-        binding.bnToday.setOnClickListener {
-            if (binding.rvDay.adapter != null && binding.rvDay.adapter!!.itemCount > 0)
-                binding.rvDay.smoothScrollToPosition(0)
-        }
+        binding.bnToday.setOnClickListener { viewModel.getList(getToday()).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) } }
     }
 
     private fun isRecyclerAtTop(): Boolean {
@@ -120,7 +118,7 @@ class MainFragment : Fragment() {
 
     private fun setupList() {
         dayAdapter = DayPagingAdapter(::changeStatus)
-        viewModel.getList().observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
+        viewModel.getList(getToday()).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
         binding.rvDay.apply {
             layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL).apply { reverseLayout = true }
             adapter = dayAdapter

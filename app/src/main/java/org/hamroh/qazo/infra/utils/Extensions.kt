@@ -55,11 +55,12 @@ fun Activity.closeKeyboard(editText: EditText) {
     inputMethodManager.hideSoftInputFromWindow(editText.windowToken, 0)
 }
 
-fun getList(page: Int): ArrayList<String> {
-    val today = getToday()
+val days = 86400000L
+
+fun getList(page: Int, day: Long): ArrayList<String> {
     val list = arrayListOf<String>()
     repeat(10) {
-        list.add("${today - ((it + ((page - 1) * 10)) * 86400000L)}")
+        list.add("${day - ((it + (page * 10)) * days)}")
     }
     return list
 }
