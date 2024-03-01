@@ -1,22 +1,23 @@
-package org.hamroh.qazo.ui.main
+package org.hamroh.qazo.ui.calendar
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import org.hamroh.qazo.infra.utils.getDayList
+import org.hamroh.qazo.infra.utils.MonthModel
+import org.hamroh.qazo.infra.utils.getMonthList
 
-class DayPaging(private val day: Long) : PagingSource<Int, String>() {
-    override fun getRefreshKey(state: PagingState<Int, String>): Int? {
+class MonthPaging(private val day: Long) : PagingSource<Int, MonthModel>() {
+    override fun getRefreshKey(state: PagingState<Int, MonthModel>): Int? {
         return state.anchorPosition?.let {
             val anchorPage = state.closestPageToPosition(it)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, String> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MonthModel> {
         val page = params.key ?: 1
 
         return try {
-            val data = page.getDayList(day)
+            val data = page.getMonthList(day)
 
             LoadResult.Page(
                 data = data,

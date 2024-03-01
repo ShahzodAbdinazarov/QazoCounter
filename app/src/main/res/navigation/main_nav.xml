@@ -28,5 +28,10 @@
         android:name="org.hamroh.qazo.ui.qazo.QazoFragment"
         android:label="fragment_qazo"
         tools:layout="@layout/fragment_qazo" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="org.hamroh.qazo.ui.calendar.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" />
 
 </navigation>

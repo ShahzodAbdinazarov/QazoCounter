@@ -5,7 +5,7 @@ data class Models(
 )
 
 data class Day(
-    val int: String? = "0",
+    val timeInMillis: String? = "0",
 )
 
 enum class PrayType {
@@ -15,3 +15,8 @@ enum class PrayType {
 enum class PrayTime {
     FAJR, DHUHR, ASR, MAGHRIB, ISHA
 }
+
+data class MonthModel(
+    val timeInMillis: Long? = null,
+    val daysOfMonth: ArrayList<String>? = null
+)

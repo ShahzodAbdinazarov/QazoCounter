@@ -35,6 +35,8 @@ class DayPagingAdapter(private var onItemClick: ((String, Int) -> Unit)? = null)
         private lateinit var prayTime: String
 
         init {
+            binding.tvDate.setOnClickListener { onItemClick?.invoke(prayTime, absoluteAdapterPosition) }
+
             binding.tvFajr.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.FAJR}", absoluteAdapterPosition) }
             binding.tvDhuhr.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.DHUHR}", absoluteAdapterPosition) }
             binding.tvAsr.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.ASR}", absoluteAdapterPosition) }

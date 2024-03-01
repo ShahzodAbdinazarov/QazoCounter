@@ -18,6 +18,7 @@ import org.hamroh.qazo.infra.utils.SharedPrefs
 import org.hamroh.qazo.infra.utils.getToday
 import org.hamroh.qazo.infra.utils.hide
 import org.hamroh.qazo.infra.utils.show
+import org.hamroh.qazo.ui.calendar.CalendarFragment
 import org.hamroh.qazo.ui.profile.ProfileDialog
 import org.hamroh.qazo.ui.qazo.QazoFragment
 import org.hamroh.qazo.ui.status.StatusDialog
@@ -128,17 +129,24 @@ class MainFragment : Fragment() {
     }
 
     private fun changeStatus(key: String, pos: Int) {
-        val prayTime = key.substring(13)
-        val statusDialog = StatusDialog()
-        statusDialog.onClick = { prayType ->
-            SharedPrefs(requireContext()).decrease(SharedPrefs(requireContext()).get(key, String::class.java) + prayTime)
-            SharedPrefs(requireContext()).put(key, prayType)
-            SharedPrefs(requireContext()).increase(prayType + prayTime)
-            Log.e("TAG", "changeStatus: ${prayType + prayTime}")
-            dayAdapter.notifyItemChanged(pos)
-            setupData()
+        Log.e("TAG", "changeStatus: $key")
+        if (key.length > 15) {
+            val prayTime = key.substring(13)
+            val statusDialog = StatusDialog()
+            statusDialog.onClick = { prayType ->
+                SharedPrefs(requireContext()).decrease(SharedPrefs(requireContext()).get(key, String::class.java) + prayTime)
+                SharedPrefs(requireContext()).put(key, prayType)
+                SharedPrefs(requireContext()).increase(prayType + prayTime)
+                dayAdapter.notifyItemChanged(pos)
+                setupData()
+            }
+            statusDialog.show(requireActivity().supportFragmentManager, "StatusDialog")
+        } else {
+            val calendarFragment = CalendarFragment()
+            calendarFragment.day = key.toLong()
+            calendarFragment.onClick = { viewModel.getList(it.toLong()).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) } }
+            calendarFragment.show(requireActivity().supportFragmentManager, "CalendarFragment")
         }
-        statusDialog.show(requireActivity().supportFragmentManager, "StatusDialog")
     }
 
 }

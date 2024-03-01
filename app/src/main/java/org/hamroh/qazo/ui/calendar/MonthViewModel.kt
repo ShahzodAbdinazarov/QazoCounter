@@ -1,4 +1,4 @@
-package org.hamroh.qazo.ui.main
+package org.hamroh.qazo.ui.calendar
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,8 +7,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
 
-class DayViewModel : ViewModel() {
+class MonthViewModel : ViewModel() {
 
-    fun getList(day: Long) = Pager(PagingConfig(pageSize = 100)) { DayPaging(day) }.liveData.cachedIn(viewModelScope)
+    fun getList(day: Long) = Pager(PagingConfig(pageSize = 12)) { MonthPaging(day) }.liveData.cachedIn(viewModelScope)
 
 }
