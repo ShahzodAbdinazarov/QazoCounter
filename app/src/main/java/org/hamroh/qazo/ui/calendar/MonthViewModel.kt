@@ -6,9 +6,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import androidx.paging.liveData
+import org.hamroh.qazo.infra.utils.pageSize
 
 class MonthViewModel : ViewModel() {
 
-    fun getList(day: Long) = Pager(PagingConfig(pageSize = 12)) { MonthPaging(day) }.liveData.cachedIn(viewModelScope)
+    fun getList(day: Long) = Pager(PagingConfig(pageSize = pageSize)) { MonthPaging(day) }.liveData.cachedIn(viewModelScope)
 
 }

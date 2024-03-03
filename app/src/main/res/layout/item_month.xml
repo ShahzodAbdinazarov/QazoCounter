@@ -7,22 +7,31 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="30dp">
+        android:id="@+id/card"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginVertical="2dp"
+        app:cardCornerRadius="24dp"
+        app:strokeWidth="1dp">
 
         <LinearLayout
+            android:id="@+id/bg_day"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/gr_yet">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tv_day"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/roboto_semi_bold"
                 android:gravity="center"
-                android:text="99"
-                android:textColor="@color/textColor"
+                android:paddingHorizontal="10dp"
+                android:text="@string/zero"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
         </LinearLayout>

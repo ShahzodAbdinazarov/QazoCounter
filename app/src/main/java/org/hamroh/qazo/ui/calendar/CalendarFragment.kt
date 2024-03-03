@@ -18,7 +18,7 @@ class CalendarFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentCalendarBinding? = null
     private val viewModel: MonthViewModel by viewModels()
     private lateinit var dayAdapter: CalendarPagingAdapter
-    var onClick: ((String) -> Unit)? = null
+    var onClick: ((Long) -> Unit)? = null
     var day = getToday()
 
     override fun onCreateView(
@@ -33,8 +33,8 @@ class CalendarFragment : BottomSheetDialogFragment() {
     }
 
     private fun setupList() {
-        dayAdapter = CalendarPagingAdapter { key, pos -> onClick?.invoke(key); dismiss() }
-        viewModel.getList(getToday()).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
+        dayAdapter = CalendarPagingAdapter { key, _ -> onClick?.invoke(key); dismiss() }
+        viewModel.getList(day).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
         binding.rvCalendar.apply {
             layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
             adapter = dayAdapter

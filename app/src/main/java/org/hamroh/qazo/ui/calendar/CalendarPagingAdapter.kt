@@ -1,8 +1,6 @@
 package org.hamroh.qazo.ui.calendar
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -10,18 +8,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.hamroh.qazo.databinding.ItemCalendarBinding
-import org.hamroh.qazo.infra.utils.MonthModel
-import org.hamroh.qazo.infra.utils.getDate
+import org.hamroh.qazo.infra.utils.Month
+import org.hamroh.qazo.infra.utils.getDayOfWeek
+import org.hamroh.qazo.infra.utils.timeFormat
 
-class CalendarPagingAdapter(private var onItemClick: ((String, Int) -> Unit)? = null) : PagingDataAdapter<MonthModel, CalendarPagingAdapter.ViewHolder>(DIFF_UTIL) {
+class CalendarPagingAdapter(private var onItemClick: ((Long, Int) -> Unit)? = null) : PagingDataAdapter<Month, CalendarPagingAdapter.ViewHolder>(DIFF_UTIL) {
 
     companion object {
-        val DIFF_UTIL = object : DiffUtil.ItemCallback<MonthModel>() {
-            override fun areItemsTheSame(oldItem: MonthModel, newItem: MonthModel): Boolean {
+        val DIFF_UTIL = object : DiffUtil.ItemCallback<Month>() {
+            override fun areItemsTheSame(oldItem: Month, newItem: Month): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areContentsTheSame(oldItem: MonthModel, newItem: MonthModel): Boolean {
+            override fun areContentsTheSame(oldItem: Month, newItem: Month): Boolean {
                 return oldItem == newItem
             }
 
@@ -29,32 +28,22 @@ class CalendarPagingAdapter(private var onItemClick: ((String, Int) -> Unit)? = 
     }
 
 
-    class ViewHolder(private val binding: ItemCalendarBinding, private val onItemClick: ((String, Int) -> Unit)?, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ItemCalendarBinding, private val onItemClick: ((Long, Int) -> Unit)?) : RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var month: MonthModel
-
-        init {
-//            binding.title.setOnClickListener { onItemClick?.invoke(prayTime, absoluteAdapterPosition) }
-//
-//            binding.tvFajr.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.FAJR}", absoluteAdapterPosition) }
-//            binding.tvDhuhr.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.DHUHR}", absoluteAdapterPosition) }
-//            binding.tvAsr.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.ASR}", absoluteAdapterPosition) }
-//            binding.tvMaghrib.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.MAGHRIB}", absoluteAdapterPosition) }
-//            binding.tvIsha.setOnClickListener { onItemClick?.invoke("$prayTime${PrayTime.ISHA}", absoluteAdapterPosition) }
-        }
+        private lateinit var month: Month
 
         @SuppressLint("ResourceAsColor", "SetTextI18n")
-        fun bind(data: MonthModel) {
-//
+        fun bind(data: Month) {
             month = data
-//            binding.tvDate.text = prayTime.toLong().getDate("dd-MMMM, EEEE yyyy") + "-yil"
-//            setUp(prayTime)
-            binding.title.text = month.timeInMillis?.getDate("MMMM")
-            setupDays(month.daysOfMonth ?: arrayListOf())
+
+            binding.tvMonth.text = month.millisStartOfMonth?.timeFormat("MMMM yyyy")
+            val list = month.millisStartOfDayInMonth ?: arrayListOf()
+            if (list.size > 0) repeat(list[0].getDayOfWeek()) { list.add(0, "") }
+            setupDays(month.millisStartOfDayInMonth ?: arrayListOf())
         }
 
         private fun setupDays(transactions: ArrayList<String>) {
-            val transactionAdapter = MonthAdapter({ onItemClick?.invoke(it, absoluteAdapterPosition) })
+            val transactionAdapter = MonthAdapter { onItemClick?.invoke(it, absoluteAdapterPosition) }
             transactionAdapter.submitList(transactions)
             binding.rvMonth.apply {
                 layoutManager = StaggeredGridLayoutManager(7, StaggeredGridLayoutManager.VERTICAL)
@@ -64,7 +53,7 @@ class CalendarPagingAdapter(private var onItemClick: ((String, Int) -> Unit)? = 
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false), onItemClick, parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(ItemCalendarBinding.inflate(LayoutInflater.from(parent.context), parent, false), onItemClick)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(getItem(position)!!)
 }
 

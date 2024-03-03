@@ -2,18 +2,19 @@ package org.hamroh.qazo.ui.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.hamroh.qazo.R
 import org.hamroh.qazo.databinding.FragmentMainBinding
+import org.hamroh.qazo.infra.utils.LoadAdapter
 import org.hamroh.qazo.infra.utils.SharedPrefs
 import org.hamroh.qazo.infra.utils.getToday
 import org.hamroh.qazo.infra.utils.hide
@@ -55,7 +56,12 @@ class MainFragment : Fragment() {
                 else if (!isRecyclerAtTop() && dy < 0 && !binding.mvToday.isShown) binding.mvToday.show()
             }
         })
-        binding.bnToday.setOnClickListener { viewModel.getList(getToday()).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) } }
+        binding.bnToday.setOnClickListener { goTo(getToday()) }
+    }
+
+    private fun goTo(day: Long) {
+        dayAdapter.submitData(lifecycle, PagingData.from(emptyList()))
+        viewModel.getList(day).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
     }
 
     private fun isRecyclerAtTop(): Boolean {
@@ -68,7 +74,6 @@ class MainFragment : Fragment() {
 
     private fun setupQazo() {
         binding.tvQazo.setOnClickListener {
-            Log.e("TAG", "setupQazo: ")
             val qazoFragment = QazoFragment()
             qazoFragment.onClick = { requireActivity().recreate() }
             qazoFragment.show(requireActivity().supportFragmentManager, "QazoFragment")
@@ -119,9 +124,11 @@ class MainFragment : Fragment() {
 
     private fun setupList() {
         dayAdapter = DayPagingAdapter(::changeStatus)
-        viewModel.getList(getToday()).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
+        dayAdapter.withLoadStateHeader(LoadAdapter())
+        dayAdapter.withLoadStateFooter(LoadAdapter())
+        goTo(getToday())
         binding.rvDay.apply {
-            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL).apply { reverseLayout = true }
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
             adapter = dayAdapter
         }
         val snapHelper: SnapHelper = PagerSnapHelper()
@@ -129,7 +136,6 @@ class MainFragment : Fragment() {
     }
 
     private fun changeStatus(key: String, pos: Int) {
-        Log.e("TAG", "changeStatus: $key")
         if (key.length > 15) {
             val prayTime = key.substring(13)
             val statusDialog = StatusDialog()
@@ -144,7 +150,7 @@ class MainFragment : Fragment() {
         } else {
             val calendarFragment = CalendarFragment()
             calendarFragment.day = key.toLong()
-            calendarFragment.onClick = { viewModel.getList(it.toLong()).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) } }
+            calendarFragment.onClick = ::goTo
             calendarFragment.show(requireActivity().supportFragmentManager, "CalendarFragment")
         }
     }

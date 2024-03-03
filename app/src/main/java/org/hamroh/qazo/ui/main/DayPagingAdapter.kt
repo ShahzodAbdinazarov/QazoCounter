@@ -12,7 +12,7 @@ import org.hamroh.qazo.databinding.ItemDayBinding
 import org.hamroh.qazo.infra.utils.PrayTime
 import org.hamroh.qazo.infra.utils.PrayType
 import org.hamroh.qazo.infra.utils.SharedPrefs
-import org.hamroh.qazo.infra.utils.getDate
+import org.hamroh.qazo.infra.utils.timeFormat
 
 class DayPagingAdapter(private var onItemClick: ((String, Int) -> Unit)? = null) : PagingDataAdapter<String, DayPagingAdapter.ViewHolder>(DIFF_UTIL) {
 
@@ -46,11 +46,10 @@ class DayPagingAdapter(private var onItemClick: ((String, Int) -> Unit)? = null)
 
         @SuppressLint("ResourceAsColor", "SetTextI18n")
         fun bind(data: String) {
-
             prayTime = data
-            binding.tvDate.text = prayTime.toLong().getDate("dd-MMMM, EEEE yyyy") + "-yil"
-            setUp(prayTime)
 
+            if (prayTime.isNotEmpty()) binding.tvDate.text = prayTime.toLong().timeFormat("dd-MMMM, EEEE yyyy") + "-yil"
+            if (prayTime.isNotEmpty()) setUp(prayTime)
         }
 
         private fun setUp(prayTime: String) {
