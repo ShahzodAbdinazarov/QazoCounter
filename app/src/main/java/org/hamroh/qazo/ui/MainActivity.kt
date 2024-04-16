@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import org.hamroh.qazo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private var _binding: ActivityMainBinding? = null
     val binding get() = _binding!!
+    private var _binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
