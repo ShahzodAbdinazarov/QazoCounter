@@ -13,7 +13,7 @@ class DayPaging(private val day: Long) : PagingSource<Int, String>() {
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, String> {
-        val page = params.key ?: 1
+        val page = params.key ?: 0
 
         return try {
             val data = page.getDayList(day)

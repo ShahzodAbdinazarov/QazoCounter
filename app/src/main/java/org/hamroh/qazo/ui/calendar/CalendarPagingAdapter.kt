@@ -28,7 +28,10 @@ class CalendarPagingAdapter(private var onItemClick: ((Long, Int) -> Unit)? = nu
     }
 
 
-    class ViewHolder(private val binding: ItemCalendarBinding, private val onItemClick: ((Long, Int) -> Unit)?) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ItemCalendarBinding,
+        private val onItemClick: ((Long, Int) -> Unit)?,
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var month: Month
 

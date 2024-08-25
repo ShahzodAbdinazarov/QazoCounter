@@ -3,6 +3,7 @@ package org.hamroh.qazo.infra.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -131,3 +132,6 @@ fun Long.timeFormat(dateFormat: String? = "dd-MMM-yyyy HH:mm:SS.sss"): String? {
     calendar.timeInMillis = this
     return SimpleDateFormat(dateFormat, Locale.forLanguageTag("uz")).format(calendar.time)
 }
+
+val Int.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

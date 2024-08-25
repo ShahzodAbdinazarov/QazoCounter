@@ -26,10 +26,14 @@ class CalendarFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
-
-        setupList()
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.back.setOnClickListener { dismiss() }
+        setupList()
     }
 
     private fun setupList() {

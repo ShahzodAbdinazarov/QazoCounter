@@ -12,17 +12,30 @@ import org.hamroh.qazo.databinding.ItemMonthBinding
 import org.hamroh.qazo.infra.utils.PrayTime
 import org.hamroh.qazo.infra.utils.PrayType
 import org.hamroh.qazo.infra.utils.SharedPrefs
+import org.hamroh.qazo.infra.utils.dp
 import org.hamroh.qazo.infra.utils.getToday
 import org.hamroh.qazo.infra.utils.timeFormat
 
-class MonthAdapter(private var onItemClick: ((Long) -> Unit)? = null) : ListAdapter<String, MonthAdapter.ViewHolder>(DIFF_UTIL()) {
+class MonthAdapter(
+    private var onItemClick: ((Long) -> Unit)? = null,
+) : ListAdapter<String, MonthAdapter.ViewHolder>(DIFF_UTIL()) {
 
     private class DIFF_UTIL : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean = oldItem == newItem
+        override fun areItemsTheSame(
+            oldItem: String,
+            newItem: String,
+        ): Boolean = oldItem == newItem
+
+        override fun areContentsTheSame(
+            oldItem: String,
+            newItem: String,
+        ): Boolean = oldItem == newItem
     }
 
-    class ViewHolder(private val binding: ItemMonthBinding, private val onItemClick: ((Long) -> Unit)?) :
+    class ViewHolder(
+        private val binding: ItemMonthBinding,
+        private val onItemClick: ((Long) -> Unit)?,
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var day: String
@@ -34,6 +47,12 @@ class MonthAdapter(private var onItemClick: ((Long) -> Unit)? = null) : ListAdap
 
         fun bind(newDay: String) {
             this.day = newDay
+
+            binding.card.strokeColor = binding.root.context.getColor(
+                if (day == getToday().toString()) R.color.ado
+                else R.color.bg
+            )
+            binding.card.strokeWidth = if (day == getToday().toString()) 2.dp else 0.dp
 
             if (day.isNotEmpty()) binding.tvDay.text = day.toLong().timeFormat("dd")
             else binding.card.visibility = View.INVISIBLE

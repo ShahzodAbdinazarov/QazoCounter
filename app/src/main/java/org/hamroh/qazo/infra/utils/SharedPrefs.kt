@@ -8,7 +8,6 @@ class SharedPrefs(context: Context) {
 
     companion object {
         private const val PREF = "MyAppPrefName"
-        private const val ABLUTION = "ABLUTION"
         private const val NAME = "NAME"
     }
 
@@ -16,9 +15,6 @@ class SharedPrefs(context: Context) {
 
     fun setName(name: String) = put(NAME, name)
     val name = get(NAME, String::class.java)
-
-    fun setAblution(ablution: Boolean) = put(ABLUTION, ablution)
-    val ablution = get(ABLUTION, Boolean::class.java)
 
     fun increase(key: String) = put(key, (get(key, Long::class.java) + 1))
     fun decrease(key: String) = put(key, (get(key, Long::class.java) - 1))

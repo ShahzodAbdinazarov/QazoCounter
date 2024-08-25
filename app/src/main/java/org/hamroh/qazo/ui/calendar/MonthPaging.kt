@@ -14,7 +14,7 @@ class MonthPaging(private val day: Long) : PagingSource<Int, Month>() {
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Month> {
-        val page = params.key ?: 1
+        val page = params.key ?: 0
 
         return try {
             val data = page.getMonthList(day)

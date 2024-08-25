@@ -37,15 +37,18 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupProfile()
-        setupAblution()
+
         setupList()
         setupData()
         setupQazo()
         setupToday()
-
-        return binding.root
     }
 
     private fun setupToday() {
@@ -92,27 +95,6 @@ class MainFragment : Fragment() {
     private fun setName() {
         val name = SharedPrefs(requireContext()).name
         binding.tvName.text = name.ifEmpty { getString(R.string.your_name) }
-    }
-
-    private fun setupAblution() {
-        checkAblution()
-        binding.bnAblution.setOnClickListener {
-            if (SharedPrefs(requireContext()).ablution) SharedPrefs(requireContext()).setAblution(false)
-            else SharedPrefs(requireContext()).setAblution(true)
-            checkAblution()
-        }
-    }
-
-    private fun checkAblution() {
-        if (SharedPrefs(requireContext()).ablution) {
-            binding.bgAblution.setBackgroundResource(R.drawable.gr_ado)
-            binding.ivHave.visibility = View.VISIBLE
-            binding.ivHaveNot.visibility = View.INVISIBLE
-        } else {
-            binding.bgAblution.setBackgroundResource(R.drawable.gr_qazo)
-            binding.ivHaveNot.visibility = View.VISIBLE
-            binding.ivHave.visibility = View.INVISIBLE
-        }
     }
 
     @SuppressLint("SetTextI18n")
