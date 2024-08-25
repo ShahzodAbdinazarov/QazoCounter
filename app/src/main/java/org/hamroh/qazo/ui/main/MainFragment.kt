@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.PagingData
-import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.hamroh.qazo.R
 import org.hamroh.qazo.databinding.FragmentMainBinding
 import org.hamroh.qazo.infra.utils.LoadAdapter
@@ -55,24 +53,36 @@ class MainFragment : Fragment() {
         binding.rvDay.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (isRecyclerAtTop() && dy > 0 && binding.mvToday.isShown) binding.mvToday.hide()
-                else if (!isRecyclerAtTop() && dy < 0 && !binding.mvToday.isShown) binding.mvToday.show()
+
+                val layoutManager = recyclerView.layoutManager as? LinearLayoutManager ?: return
+                val adapter = recyclerView.adapter as? DayPagingAdapter ?: return
+
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                val isTodayVisible = (firstVisibleItemPosition..lastVisibleItemPosition).any { position ->
+                    val item = adapter.peek(position)
+                    item == getToday().toString()
+                }
+                if (isTodayVisible) binding.mvToday.hide() else binding.mvToday.show()
             }
         })
-        binding.bnToday.setOnClickListener { goTo(getToday()) }
+
+        binding.bnToday.setOnClickListener {
+            val adapter = binding.rvDay.adapter as? DayPagingAdapter ?: return@setOnClickListener
+
+            val todayPosition = (0 until adapter.itemCount).find { position ->
+                adapter.peek(position) == getToday().toString()
+            }
+
+            if (todayPosition != null) binding.rvDay.smoothScrollToPosition(todayPosition)
+            else goTo(getToday())
+        }
     }
 
     private fun goTo(day: Long) {
         dayAdapter.submitData(lifecycle, PagingData.from(emptyList()))
         viewModel.getList(day).observe(viewLifecycleOwner) { dayAdapter.submitData(lifecycle, it) }
-    }
-
-    private fun isRecyclerAtTop(): Boolean {
-        val layoutManager = binding.rvDay.layoutManager as StaggeredGridLayoutManager
-        val firstVisibleItems = IntArray(layoutManager.spanCount)
-        layoutManager.findFirstCompletelyVisibleItemPositions(firstVisibleItems)
-        for (position in firstVisibleItems) if (position == 0) return true
-        return false
     }
 
     private fun setupQazo() {
@@ -110,11 +120,9 @@ class MainFragment : Fragment() {
         dayAdapter.withLoadStateFooter(LoadAdapter())
         goTo(getToday())
         binding.rvDay.apply {
-            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = dayAdapter
         }
-        val snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.rvDay)
     }
 
     private fun changeStatus(key: String, pos: Int) {
