@@ -8,6 +8,7 @@
     <string name="count_qazo">O‘qilishi kerak bo‘lgan qazolar</string>
     <string name="count_pray">Qazo qilib o‘qilganlar</string>
     <string name="count_ado">Ado qilinganlar</string>
+    <string name="count_streak">%s mahal</string>
     <string name="ado">Ado qilindi</string>
     <string name="qazo">Qazo bo‘ldi</string>
     <string name="pray">Qazosi o‘qildi</string>
