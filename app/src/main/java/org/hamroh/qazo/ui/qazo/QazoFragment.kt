@@ -25,6 +25,7 @@ class QazoFragment : BottomSheetDialogFragment() {
     ): View {
         _binding = FragmentQazoBinding.inflate(inflater, container, false)
 
+        binding.ibClose.setOnClickListener { dismiss() }
         setupQazolar()
         setupChange()
         binding.ibSave.setOnClickListener { saveQazo() }

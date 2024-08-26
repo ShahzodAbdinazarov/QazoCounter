@@ -135,3 +135,27 @@ fun Long.timeFormat(dateFormat: String? = "dd-MMM-yyyy HH:mm:SS.sss"): String? {
 
 val Int.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+
+fun Context.getStreak(today: Long): Int {
+    var prayTime = today
+    var count = 0
+
+    while (prayTime > 0) {
+        for (prayer in listOf(PrayTime.ISHA, PrayTime.MAGHRIB, PrayTime.ASR, PrayTime.DHUHR, PrayTime.FAJR)) {
+            val result = checkPrayerStreak(prayTime, prayer, count) ?: return count
+            count = result
+        }
+        prayTime -= millisInDay
+    }
+
+    return count
+}
+
+private fun Context.checkPrayerStreak(prayTime: Long, prayer: PrayTime, count: Int): Int? {
+    val pray = SharedPrefs(this).get("$prayTime$prayer", String::class.java)
+    return when (pray) {
+        PrayType.PRAY.toString(), PrayType.QAZO.toString() -> null
+        PrayType.ADO.toString() -> count + 1
+        else -> if (count == 0) 0 else null
+    }
+}

@@ -14,6 +14,7 @@ import org.hamroh.qazo.R
 import org.hamroh.qazo.databinding.FragmentMainBinding
 import org.hamroh.qazo.infra.utils.LoadAdapter
 import org.hamroh.qazo.infra.utils.SharedPrefs
+import org.hamroh.qazo.infra.utils.getStreak
 import org.hamroh.qazo.infra.utils.getToday
 import org.hamroh.qazo.infra.utils.hide
 import org.hamroh.qazo.infra.utils.show
@@ -88,7 +89,7 @@ class MainFragment : Fragment() {
     private fun setupQazo() {
         binding.tvQazo.setOnClickListener {
             val qazoFragment = QazoFragment()
-            qazoFragment.onClick = { requireActivity().recreate() }
+            qazoFragment.onClick = { setupData() }
             qazoFragment.show(requireActivity().supportFragmentManager, "QazoFragment")
         }
     }
@@ -112,6 +113,7 @@ class MainFragment : Fragment() {
         binding.tvQazo.text = "${SharedPrefs(requireContext()).allQazo()} ta"
         binding.tvPray.text = "${SharedPrefs(requireContext()).allPray()} ta"
         binding.tvAdo.text = "${SharedPrefs(requireContext()).allAdo()} ta"
+        setupStreak()
     }
 
     private fun setupList() {
@@ -145,5 +147,11 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun setupStreak() {
+        binding.tvStreak.text = getString(
+            R.string.count_streak,
+            requireContext().getStreak(getToday()).toString()
+        )
+    }
 }
 
