@@ -88,7 +88,7 @@ class MainFragment : Fragment() {
     private fun setupQazo() {
         binding.tvQazo.setOnClickListener {
             val qazoFragment = QazoFragment()
-            qazoFragment.onClick = { requireActivity().recreate() }
+            qazoFragment.onClick = { setupData() }
             qazoFragment.show(requireActivity().supportFragmentManager, "QazoFragment")
         }
     }
