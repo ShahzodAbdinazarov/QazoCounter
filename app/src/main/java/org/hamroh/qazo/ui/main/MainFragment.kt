@@ -18,10 +18,10 @@ import org.hamroh.qazo.infra.utils.getStreak
 import org.hamroh.qazo.infra.utils.getToday
 import org.hamroh.qazo.infra.utils.hide
 import org.hamroh.qazo.infra.utils.show
-import org.hamroh.qazo.ui.calendar.CalendarFragment
 import org.hamroh.qazo.ui.profile.ProfileDialog
 import org.hamroh.qazo.ui.qazo.QazoFragment
 import org.hamroh.qazo.ui.status.StatusDialog
+import org.hamroh.qazo.ui.year.CalendarYearFragment
 
 
 class MainFragment : Fragment() {
@@ -139,11 +139,6 @@ class MainFragment : Fragment() {
                 setupData()
             }
             statusDialog.show(requireActivity().supportFragmentManager, "StatusDialog")
-        } else {
-            val calendarFragment = CalendarFragment()
-            calendarFragment.day = key.toLong()
-            calendarFragment.onClick = ::goTo
-            calendarFragment.show(requireActivity().supportFragmentManager, "CalendarFragment")
         }
     }
 
@@ -152,6 +147,11 @@ class MainFragment : Fragment() {
             R.string.count_streak,
             requireContext().getStreak(getToday()).toString()
         )
+        binding.ivCalendar.setOnClickListener {
+            val calendarFragment = CalendarYearFragment()
+            calendarFragment.onClick = ::goTo
+            calendarFragment.show(requireActivity().supportFragmentManager, "CalendarFragment")
+        }
     }
 }
 
