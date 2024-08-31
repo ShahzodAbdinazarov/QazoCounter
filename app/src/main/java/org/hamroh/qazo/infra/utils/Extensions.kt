@@ -20,26 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-fun String.getDayOfWeek(): Int {
-    val calendar = Calendar.getInstance()
-    if (this.isEmpty()) return 0
-    calendar.timeInMillis = this.toLong()
-    return (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7
-}
-
-fun Long.startOfMonthInMillis(): Long {
-    val calendar = Calendar.getInstance()
-    calendar.timeInMillis = this
-    calendar.set(Calendar.DAY_OF_MONTH, 1)
-
-    calendar.set(Calendar.HOUR_OF_DAY, 0)
-    calendar.set(Calendar.MINUTE, 0)
-    calendar.set(Calendar.SECOND, 0)
-    calendar.set(Calendar.MILLISECOND, 0)
-
-    return calendar.timeInMillis
-}
-
 fun ViewGroup.hide() {
     this.visibility = View.GONE
 }
@@ -76,41 +56,8 @@ fun Activity.closeKeyboard(editText: EditText) {
     inputMethodManager.hideSoftInputFromWindow(editText.windowToken, 0)
 }
 
-private fun Long.days(): Int {
-    val month = (this.timeFormat("M") ?: "0").toInt()
-    val year = (this.timeFormat("yyyy") ?: "2").toInt()
-    return when (month) {
-        1 -> 31
-        2 -> if (year % 4 == 0) 29 else 28
-        3 -> 31
-        4 -> 30
-        5 -> 31
-        6 -> 30
-        7 -> 31
-        8 -> 31
-        9 -> 30
-        10 -> 31
-        11 -> 30
-        else -> 31
-    }
-}
-
 const val pageSize = 48
 const val millisInDay = 86400000L
-const val millisIn4Year = millisInDay * (4L * 365L + 1L)
-
-fun Int.getMonthList(month: Long): ArrayList<Month> {
-    var startMonth = month.startOfMonthInMillis() + this * millisIn4Year
-    val list = arrayListOf<Month>()
-    repeat(pageSize) {
-        var startDay = startMonth
-        val daysOfMonth = arrayListOf<String>()
-        repeat(startMonth.days()) { daysOfMonth.add("$startDay"); startDay += millisInDay }
-        list.add(Month(startMonth, daysOfMonth))
-        startMonth = startDay
-    }
-    return list
-}
 
 fun Int.getDayList(day: Long): ArrayList<String> {
     val list = arrayListOf<String>()

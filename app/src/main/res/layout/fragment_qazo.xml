@@ -20,12 +20,12 @@
             android:paddingBottom="100dp">
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="100dp"
-                android:layout_height="6dp"
+                android:layout_width="60dp"
+                android:layout_height="4dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 app:cardBackgroundColor="@color/middle"
-                app:cardCornerRadius="3dp"
+                app:cardCornerRadius="2dp"
                 app:cardElevation="0dp"
                 app:strokeWidth="0dp" />
 

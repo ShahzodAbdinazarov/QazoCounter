@@ -1,4 +1,3 @@
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -10,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "org.hamroh.qazo"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 11
         versionName = "1.1.1"
@@ -27,7 +26,6 @@ android {
             applicationIdSuffix = ".debug"
             resValue("string", "app_name", "Qazo (DEBUG)")
         }
-
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -58,4 +56,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
+    // Calendar
+    implementation("com.kizitonwose.calendar:view:2.0.4")
 }
